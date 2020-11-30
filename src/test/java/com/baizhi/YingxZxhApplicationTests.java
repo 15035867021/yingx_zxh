@@ -48,5 +48,10 @@ class YingxZxhApplicationTests {
         videoPos.forEach(video-> System.out.println(video));
         int a = 100;
         int b = 200;
+        System.out.println(a+b);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("========================");
     }
 }
