@@ -1,0 +1,75 @@
+package com.baizhi.common;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+//进行回显
+public class CommonResult {
+
+    private String status;    //状态
+    private String message;      //信息
+    private Object data;              //数据
+
+
+    //请求成功
+    public CommonResult success(String status,String message,Object data){
+        CommonResult commonResult = new CommonResult();
+
+        commonResult.setStatus(status);
+        commonResult.setMessage(message);
+        commonResult.setData(data);
+        return commonResult;
+    }
+
+    public CommonResult success(String message,Object data){
+        CommonResult commonResult = new CommonResult();
+
+        commonResult.setStatus("100");
+        commonResult.setMessage(message);
+        commonResult.setData(data);
+        return commonResult;
+    }
+
+    public CommonResult success(Object data){
+        CommonResult commonResult = new CommonResult();
+
+        commonResult.setStatus("100");
+        commonResult.setMessage("请求成功");
+        commonResult.setData(data);
+        return commonResult;
+    }
+
+
+    //请求失败
+    public CommonResult failed(String message,Object data){
+        CommonResult commonResult = new CommonResult();
+
+        commonResult.setStatus("104");
+        commonResult.setMessage(message);
+        commonResult.setData(data);
+        return commonResult;
+    }
+
+    public CommonResult failed(String message){
+        CommonResult commonResult = new CommonResult();
+
+        commonResult.setStatus("104");
+        commonResult.setMessage(message);
+        commonResult.setData(null);
+        return commonResult;
+    }
+
+
+    public CommonResult failed(){
+        CommonResult commonResult = new CommonResult();
+
+        commonResult.setStatus("104");
+        commonResult.setMessage("请求失败");
+        commonResult.setData(null);
+        return commonResult;
+    }
+}

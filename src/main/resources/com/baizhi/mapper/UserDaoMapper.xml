@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baizhi.dao.UserDao">
+    <!--查所有  分页-->
+    <select id="queryAll" resultType="User">
+        select id,nick_name nickName,phone,pic_img picImg,brief,creat_date creatDate,status,score,sex,city
+        from yx_user
+        limit #{start},#{rows}
+    </select>
+
+    <!--查所有  分页-->
+    <select id="queryAlls" resultType="User">
+        select id,nick_name nickName,phone,pic_img picImg,brief,creat_date creatDate,status,score,sex,city
+        from yx_user
+    </select>
+
+    <!--查数据库所有数据-->
+    <select id="count" resultType="Integer">
+        select count(*)
+        from yx_user
+    </select>
+
+    <!--修改-->
+    <update id="update" parameterType="User">
+        update yx_user
+        <set>
+            <if test="picImg!=null">pic_img=#{picImg},</if>
+            <if test="nickName!=null">nick_name=#{nickName},</if>
+            <if test="phone!=null">phone=#{phone},</if>
+            <if test="brief!=null">brief=#{brief},</if>
+            <if test="creatDate!=null">creat_date=#{creatDate},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="score!=null">score=#{score},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="city!=null">city=#{city},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--查一个-->
+    <select id="queryOne" parameterType="String" resultType="User">
+    select id,pic_img picImg,nick_name nickName,phone,brief,creat_date creatDate,status,score,sex,city
+    from yx_user
+    where id = #{id}
+    </select>
+
+    <!--添加-->
+    <insert id="add" parameterType="User">
+        insert into yx_user
+        values(#{id},#{nickName},#{phone},#{picImg},#{brief},#{creatDate},#{status},#{score},#{sex},#{city})
+    </insert>
+
+    <!--查各个性别 分布的 地区-->
+    <select id="queryAllSexCity" resultType="com.baizhi.entity.City" parameterType="String">
+        select city name,count(*) value
+        from yx_user
+        where sex = #{sex}
+        group by city
+    </select>
+
+    <!--查每个月  各个性别 的注册人数-->
+    <select id="queryAllMonth" resultType="Mc">
+        select concat(month(creat_date),'月') months,count(*) counts
+        from yx_user
+        where sex = #{sex} and month(creat_date) like #{month}
+        group by month(creat_date)
+    </select>
+</mapper>
