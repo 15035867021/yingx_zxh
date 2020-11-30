@@ -46,5 +46,7 @@ class YingxZxhApplicationTests {
 
         List<VideoPo> videoPos = videoService.queryByLikeVideoName("啊");
         videoPos.forEach(video-> System.out.println(video));
+        int a = 100;
+        int b = 200;
     }
 }
